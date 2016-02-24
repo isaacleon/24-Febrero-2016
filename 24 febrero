@@ -1,0 +1,24 @@
+install.packages(foreign)
+library (foreign)
+y <- read.dbf("C:\\Users\\SALA-C22\\Desktop\\COE1T215.dbf")
+y1 <- subset(y,ENT==30)
+require (questionr)
+install.packages("questionr")
+y1$P3L <-ordered(y1$P3L, levels = c("01","02","03","04","05","06","07","08","09","10","11","99"), labels=c("1 persona","2 a 5 personas","6 a 10 personas", "11 a 15 personas","16 a 20 personas","21 a 30 personas","31 a 50 personas", "51 a 100 personas","101 a 250 personas", "251 a 500 personas","501 y mas personas", "no sabe"))
+table (y1$P3L)
+y1$P5 <-ordered(y1$P5, levels = c("1","2","3","9"), labels=c("Si","No trabajo la semana pasada","No se encontro en esa situacion", "No sabe"))
+table (y1$P5)
+y1$P2E <-ordered(y1$P2E, levels = c("1","2","3","4","5","6","9"), labels=c("una persona temporalmente ausente de su actividad u oficio?","pensionado o jubilado de su empleo?","estudiante", "persona que se dedica a quehaceres del hogar","persona con limitacion fisica o mental que le impide trabajar por el resto de su vida?","Otra condicion", "no sabe"))                
+table (y1$P2E)
+table (P2E,P3L)
+table (P3L, P5)
+y1$P1 <-ordered(y1$P1, levels = c(1,2), labels=c("Trabaja","No trabaja"))
+table (P3L, P1)
+attach (y1)
+c2 <- wtd.table(y1$P3L, weights = y1$FAC)
+c2
+c3 <- wtd.table(y1$P5, weights = y1$FAC)
+c3
+c4 <- wtd.table(y1$P2E, weights = y1$FAC)
+c4
+
